@@ -1,11 +1,9 @@
 Settings:
 
-* **url** - your github activity feed json url -- *required* 
-        
-		e.g. 'https://github.com/username.json'
+* **username** - your Github username -- *required* 
 
 
-* **results** - number of results you want to display -- *optional*
+* **results** - number of results to display -- *optional*
     
 		default is 5
 

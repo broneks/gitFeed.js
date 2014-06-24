@@ -6,19 +6,19 @@
  */
 
 function gitFeed(settings) {
-	if (typeof settings === 'undefined' || typeof settings.url === 'undefined') {
-		console.log('gitFeed.js INIT ERROR: please initialize the plugin and define your Github activity feed url (e.g. https://github.com/username.json)');
+	if (typeof settings === 'undefined' || typeof settings.username === 'undefined') {
+		console.log('gitFeed.js INIT ERROR: please initialize the plugin with a valid Github username (e.g gitFeed({ username: yourusername });)');
 		return false;
 	}
 
-	var months 	   = (typeof settings.fullMonthNames !== 'undefined' && settings.fullMonthNames ? 
-						['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] : 
-						['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
-		$feed  	   = $('.gitfeed');
-		numResults = (!isNaN(+settings.results) && isFinite(settings.results) ? settings.results : 5);
+	var months     = (typeof settings.fullMonthNames !== 'undefined' && settings.fullMonthNames ? 
+		                ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] : 
+		                ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+	var $feed  	   = $('.gitfeed');
+	var numResults = (!isNaN(+settings.results) && isFinite(settings.results) ? settings.results : 5);
 
 	$.ajax({
-		url: settings.url, 
+		url: 'https://github.com/' + settings.username + '.json', 
 		dataType: 'jsonp',
 		success: function(data) {
 			for (var i = 0; i < numResults; i++) {
