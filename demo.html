@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="author" content="Bronek Szulc">
-
 	<title>GitFeed.js Demo</title>
+
 	<style>
 		.gitfeed {
 			width: 500px;
@@ -12,17 +12,19 @@
 			font-size: 1.2em;
 			font-weight: bold;
 			color: #444;
-			border: 1px solid #777;
 		}
 		.gitfeed ul {
-			margin: 0;
+			margin: 5px 0 0;
 			padding: 10px 20px;
 			list-style: none;
 			overflow: hidden;
 			background-color: #f8f6f2;
+			border: 1px solid #ccc;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
 		}
-		.gitfeed ul + ul { border-top: 1px solid #777; }
-		.gitfeed li + li { margin-top: 8px; } 
+		.gitfeed li + li { margin-top: 7px; } 
 		.gitfeed span { display: inline-block; }
 		.gf-label { 
 			width: 100px;
@@ -43,9 +45,9 @@
 
 			// initialize the gitFeed plugin
 			gitFeed({
-				url: 'http://github.com/bszulc.json',	// required
-				results: 3,								// optional
-				fullMonthNames: true					// optional
+				url: 'http://github.com/bszulc.json',   // required
+				results: 7,                             // optional
+				fullMonthNames: true                    // optional
 			});
 		});
 	</script>

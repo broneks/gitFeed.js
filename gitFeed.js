@@ -2,7 +2,7 @@
  * gitFeed.js (Github Activity Feed Display)
  *
  * Copyright 2014 Bronek Szulc
- * https://github.com/Bszulc/gitFeed
+ * https://github.com/Bszulc/gitFeed.js
  */
 
 function gitFeed(settings) {
