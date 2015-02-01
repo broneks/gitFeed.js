@@ -1,0 +1,41 @@
+.gitfeed {
+  max-width: 31.25em;
+  margin: 0 auto;
+  color: #444;
+}
+.gitfeed ul {
+  max-height: 35em;
+  overflow-y: auto;
+  margin: 0.5em 0 0;
+  padding: 0.8em 1.2em;
+  list-style: none;
+  background-color: #f8f6f2;
+  border: 1px solid #d2d2d2;
+}
+.gitfeed-item {
+  padding: 0.5em 0;
+}
+.gitfeed-item + .gitfeed-item { 
+  margin-top: 0.5em; 
+  border-top: 1px solid #e9e9e9;
+}
+.gitfeed-item-section {
+  margin-top: 0.2em;
+}
+.gitfeed-item-section:after {
+  display: table;
+  content: "";
+  clear: both;
+} 
+.gitfeed-label + span,
+.gitfeed-label + a { 
+  width: 79%;
+  float: right;
+}
+.gitfeed-label {
+  width: 20%;
+  float: left;
+  font-size: 0.9em;
+  font-weight: bold; 
+  color: #525252;
+}

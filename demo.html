@@ -1,55 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="author" content="Bronek Szulc">
-	<title>GitFeed.js Demo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Bronek Szulc">
+  <title>GitFeed.js Demo</title>
 
-	<style>
-		.gitfeed {
-			width: 500px;
-			margin: 0 auto;
-			font-size: 1.2em;
-			font-weight: bold;
-			color: #444;
-		}
-		.gitfeed ul {
-			margin: 5px 0 0;
-			padding: 10px 20px;
-			list-style: none;
-			overflow: hidden;
-			background-color: #f8f6f2;
-			border: 1px solid #ccc;
-			-webkit-border-radius: 5px;
-			-moz-border-radius: 5px;
-			border-radius: 5px;
-		}
-		.gitfeed li + li { margin-top: 7px; } 
-		.gitfeed span { display: inline-block; }
-		.gf-label { 
-			width: 100px;
-			font-weight: bold; 
-		}
-	</style>
+  <link rel="stylesheet" href="gitFeed.css">
 </head>
 <body>
 
-	<!-- include element with gitfeed class -->
-	<div class="gitfeed"></div>
-	
-	<!-- include jQuery before the gitFeed script -->
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="gitFeed.min.js"></script>
-	<script>
-		$(document).ready(function() {
+  <div class="gitfeed"></div>
 
-			// initialize the gitFeed plugin
-			gitFeed({
-				username: 'bszulc',   // required
-				results: 7,           // optional
-				fullMonthNames: true  // optional
-			});
-		});
-	</script>
+  <script src="gitFeed.min.js"></script>
+  <script>
+    // initialize gitfeed
+    gitFeed({
+      username       : 'bszulc',   // required
+      targetClass    : 'gitfeed',
+      fullMonthNames : true,
+      hideLabels     : true,
+      results        : 7,
+    });
+  </script>
 </body>
 </html>
