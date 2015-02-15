@@ -1,7 +1,7 @@
 /*!
  * gitFeed.js (Github Activity Feed Display)
  *
- * Copyright 2014 Bronek Szulc
+ * Copyright 2014-2015 Bronek Szulc
  * https://github.com/Bszulc/gitFeed.js
  */
 
@@ -68,7 +68,7 @@ var gitFeed = (function(window) {
 
       if ( data.data.hasOwnProperty( 'message' ) ) {
 
-      	throw new Error( data.data.message );
+        throw new Error( data.data.message );
       }
 
       sessionStorage.setItem( 'gitfeed_store', JSON.stringify( data.data ) );
@@ -106,7 +106,7 @@ var gitFeed = (function(window) {
     if ( type === 'link' ) {
 
       options.url = 'https://github.com' + 
-                    (options.url.split('/repos')[1]).replace(/\/commits\//, '\/commit\/');
+                    (options.url.split('/repos')[1]).replace(/\/commits\//, '/commit/');
 
       content = document.createElement('a');
       content.href = options.url;
@@ -151,7 +151,7 @@ var gitFeed = (function(window) {
       info.year    = info.date.getFullYear();
       info.type    = (info.current.type).replace( 'Event', '' );
 
-    	
+      
       if ( info.current.payload.commits ) {
 
         createSection( listItem, {
@@ -164,11 +164,11 @@ var gitFeed = (function(window) {
 
       if ( info.current.repo ) {
 
-      	createSection( listItem, {
+        createSection( listItem, {
           itemClass : 'gitfeed-repo',
           label     : 'repo:',
           url       : info.current.repo.url,
-          content   : info.current.repo.name.toLowerCase()
+          content   : info.current.repo.name
         }, 'link' );
       }
 
@@ -189,7 +189,7 @@ var gitFeed = (function(window) {
 
 
     feeds.forEach( function( feed ) {
-      	
+        
       feed.appendChild( container );
     });
   };
