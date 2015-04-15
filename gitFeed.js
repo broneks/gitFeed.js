@@ -130,12 +130,14 @@ var gitFeed = (function(window) {
   //
   var populateFeeds = function( data ) {
 
-    var i, container, listItem, info;
+    var i, dataLength, numOfResults, container, listItem, info;
 
     container = document.createElement('ul');
 
+    dataLength   = data.length;
+    numOfResults = (settings.results > dataLength) ? dataLength : settings.results;
 
-    for ( i = 0; i < settings.results; i++ ) {
+    for ( i = 0; i < numOfResults; i++ ) {
 
       listItem = document.createElement('li');
       listItem.className = "gitfeed-item";

@@ -4,14 +4,14 @@
   color: #333;
   font-family: Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
 }
-.gitfeed .gitfeed-header {
+.gitfeed-header {
   background-color: #f5f5f5;
   border: 1px solid #d2d2d2;
   border-radius: 3px 3px 0 0;
   margin: 0.5em 0 0;
   padding: 1em;
 }
-.gitfeed .gitfeed-header h3 {
+.gitfeed-header h3 {
   margin: 0;
 }
 .gitfeed ul {
@@ -29,20 +29,26 @@
   color: #4183c4;
 }
 .gitfeed-item {
+  position: relative;
   padding: 0.5em 0;
+}
+.gitfeed-item:after {
+  display: table;
+  content: "";
+  clear: both;
 }
 .gitfeed-item + .gitfeed-item { 
   margin-top: 0.5em; 
   border-top: 1px solid #e9e9e9;
 }
-.gitfeed-item-section {
-  margin-top: 0.2em;
+.gitfeed-item-section + .gitfeed-item-section {
+  margin-top: 0.4em;
 }
 .gitfeed-item-section:after {
   display: table;
   content: "";
   clear: both;
-} 
+}
 .gitfeed-label + span,
 .gitfeed-label + a { 
   width: 79%;
@@ -54,4 +60,25 @@
   font-size: 0.9em;
   font-weight: bold; 
   color: #525252;
+}
+.gitfeed-commit {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gitfeed-action {
+  position: absolute;
+  right: 0;
+  bottom: 0.5em;
+  padding: 0.2em 0.4em;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #525252;
+}
+.gitfeed-action .gitfeed-label {
+  display: none;
+}
+.gitfeed-action span {
+  width: 100%;
 }
