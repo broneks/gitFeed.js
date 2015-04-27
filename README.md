@@ -48,8 +48,8 @@ with your preferred settings:
         default is "long"
 
  * "short" - e.g. 4/15/2015
- * "medium" - e.g. Apr 3, 2015
- * "long" - e.g. April 3, 2015
+ * "medium" - e.g. Apr 15, 2015
+ * "long" - e.g. April 15, 2015
 
 
 * **timeFormat** - how to format time -- *optional*
