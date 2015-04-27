@@ -11,14 +11,6 @@ var gitFeed = (function(window) {
 
   var settings, feeds;
 
-  var monthNames = {
-
-    full  : ['January', 'February', 'March', 'April', 'May', 'June', 
-             'July', 'August', 'September', 'October', 'November', 'December'],
-    short : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-             'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
-  };
-
 
   // basic object extension
   // 
@@ -83,10 +75,11 @@ var gitFeed = (function(window) {
   //
   var createSection = function( parent, options, type ) {
 
-    var item, itemCommonClass, label, labelClass, labelText, content, contentText;
+    var item, itemCommonClass, label, labelClass, valueClass, labelText, content, contentText;
 
     itemCommonClass  = 'gitfeed-item-section';
     labelClass       = 'gitfeed-label';
+    valueClass       = 'gitfeed-value';
 
     item = document.createElement('div');
     item.className = options.itemClass + ' ' + itemCommonClass;
@@ -118,12 +111,103 @@ var gitFeed = (function(window) {
     }
 
     contentText = document.createTextNode( options.content );
+    content.className = valueClass;
     content.appendChild( contentText );
 
 
     item.appendChild( content );
     parent.appendChild( item );
   };
+
+
+  // format the feed item date and time
+  //
+  var formatDate = (function() {
+
+    var monthNames = {
+
+      long  : 'January February March April May June July August September October November December'.split(' '),
+      short : 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')
+    };
+
+
+    var timeFormat = function( t ) {
+
+      if ( settings.timeFormat && settings.timeFormat.toLowerCase() === 'hide') {
+        return '';
+      }
+
+      var hours   = (t.hours   < 10 ? '0' : '') + t.hours;
+      var minutes = (t.minutes < 10 ? '0' : '') + t.minutes;
+      var marker  = '';
+
+      if ( settings.timeFormat && settings.timeFormat === '12' ) {
+        hours  = (t.hours > 12) ? t.hours - 12 : t.hours;
+        marker = (t.hours > 12) ? ' PM': ' AM'; 
+      }
+
+      return ' ' + String.fromCharCode( 8211 ) + ' ' + hours + ':' + minutes + marker;
+    };
+
+
+    // e.g. 9/3/2010
+    // 
+    var shortFormat = function( d ) {
+
+      return (d.month + 1) + '/' + d.day + '/' + d.year + timeFormat( d );
+    };
+
+
+    // e.g. Sep 3, 2010
+    // 
+    var mediumFormat = function( d ) {
+      
+      return monthNames.short[d.month] + ' ' + d.day + ', ' + d.year + timeFormat( d );
+    };
+
+
+    // e.g. September 3, 2010
+    // 
+    var longFormat = function( d ) {
+
+      return monthNames.long[d.month] + ' ' + d.day + ', ' + d.year + timeFormat( d );
+    };
+
+
+    return function( date ) {
+
+      var formatted, d;
+
+      d = {
+        month : date.getMonth(),
+        day   : date.getDate(),
+        year  : date.getFullYear(),
+        hours : date.getHours(),
+        minutes : date.getMinutes()
+      };
+
+      switch ( settings.dateFormat.toLowerCase() ) {
+
+        case 'hide':
+          formatted = '';
+          break;
+
+        case 'short':
+          formatted = shortFormat( d );
+          break;
+
+        case 'medium':
+          formatted = mediumFormat( d );
+          break;
+
+        case 'long':
+        default:
+          formatted = longFormat( d );
+      }
+
+      return formatted;
+    }
+  })();
 
   
   // populate each intance of the gitFeed with the retrieved data
@@ -135,23 +219,29 @@ var gitFeed = (function(window) {
     container = document.createElement('ul');
 
     dataLength   = data.length;
-    numOfResults = (settings.results > dataLength) ? dataLength : settings.results;
+    numOfResults = (!settings.results || settings.results > dataLength) ? dataLength : settings.results;
 
     for ( i = 0; i < numOfResults; i++ ) {
 
       listItem = document.createElement('li');
-      listItem.className = "gitfeed-item";
+      listItem.className = 'gitfeed-item';
 
       info = {};
 
       info.current = data[i];
-      info.date    = new Date( info.current.created_at );
-      info.minutes = (info.date.getMinutes() < 10 ? '0' : '') + info.date.getMinutes();
-      info.hours   = (info.date.getHours()   < 10 ? '0' : '') + info.date.getHours();
-      info.day     = (info.date.getDate()    < 10 ? '0' : '') + info.date.getDate();
-      info.month   = settings.fullMonthNames ? monthNames.full[info.date.getMonth()] : monthNames.short[info.date.getMonth()];
-      info.year    = info.date.getFullYear();
       info.type    = (info.current.type).replace( 'Event', '' );
+
+      if ( settings.hideWatched && info.type.toLowerCase() === 'watch' ) {
+        
+        if ( numOfResults <= dataLength - 1 ) {
+
+          numOfResults += 1;
+        }
+        
+        continue;
+      }
+
+      info.date = formatDate( new Date( info.current.created_at ) );
 
       
       if ( info.current.payload.commits ) {
@@ -180,11 +270,14 @@ var gitFeed = (function(window) {
         content   : info.type
       });
 
-      createSection( listItem, {
-        itemClass : 'gitfeed-date',
-        label     : 'date:',
-        content   : info.day + ' ' + info.month + ', ' + info.year + ' - ' + info.hours + ':' + info.minutes
-      });
+      if ( info.date ) {
+
+        createSection( listItem, {
+          itemClass : 'gitfeed-date',
+          label     : 'date:',
+          content   : info.date
+        });
+      }
 
       container.appendChild( listItem );
     }
@@ -201,15 +294,15 @@ var gitFeed = (function(window) {
   //
   var init = function( userSettings ) {
 
-    var defaults, nodes;
+    var defaults, nodes, i;
 
     settings = userSettings || {};
 
     defaults = {
       targetClass    : 'gitfeed',
-      fullMonthNames : false,
+      dateFormat     : 'long',
       hideLabels     : false,
-      results        : 10
+      hideWatched    : false
     };
 
     if ( !settings.hasOwnProperty( 'username' ) ) {
@@ -222,11 +315,22 @@ var gitFeed = (function(window) {
     nodes = document.querySelectorAll( '.' + settings.targetClass );
     feeds = Array.prototype.slice.call( nodes );
 
-    getEvents( populateFeeds );
+    try {
+    
+      getEvents( populateFeeds );
+    
+    } catch( err ) {
+
+      for (i = 0; i < feeds.length; i++) {
+        feeds[i].parentNode.removeChild( feeds[i] );
+      }
+
+      throw new Error( 'gitFeed.js : an unexpected error occurred: ' + err );
+    }
   };
 
 
   return init;
 
 
-})(window);
+})( window );
