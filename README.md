@@ -2,6 +2,32 @@
 
 Display your GitHub activity feed on your website :octocat:
 
+## Getting Started
+
+Include the the stylesheet within the head of your page:
+
+```
+<link rel="stylesheet" href="gitFeed.css">
+```
+
+Include the minified js file at the bottom of the body of your page and then initialize gitFeed 
+with your preferred settings:
+
+```
+<script src="gitFeed.min.js"></script>
+<script>
+    // initialize gitfeed
+    gitFeed({
+      username       : 'bszulc',   // required
+      dateFormat     : 'medium',
+      timeFormat     : '12',
+      hideWatched    : true,
+      hideLabels     : true,
+      results        : 7
+    });
+</script>
+```
+
 ##Settings:
 
 * **username** - your GitHub username -- ***required*** 
@@ -40,6 +66,7 @@ Display your GitHub activity feed on your website :octocat:
 * **hideWatched** - hide activity about repos you watch or star --  *optional*
         
         default is false
+```
 
 ## Screenshot
 
