@@ -10,6 +10,17 @@ Include the the stylesheet within the head of your page:
 <link rel="stylesheet" href="gitFeed.css">
 ```
 
+Add elements to be targeted by gitFeed. Feed activity will be appended to this element:
+
+```
+<div class="gitfeed">
+    <header class="gitfeed-header">
+      <h3>GitHub Feed</h3>  
+    </header>
+</div>
+```
+
+
 Include the minified js file at the bottom of the body of your page and then initialize gitFeed 
 with your preferred settings:
 
