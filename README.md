@@ -1,6 +1,6 @@
 # GitFeed.js 
 
-Display your GitHub activity feed
+Display your GitHub activity feed on your website :octocat:
 
 ##Settings:
 
@@ -9,12 +9,12 @@ Display your GitHub activity feed
 
 * **targetClass** - element class name that gitFeed will target -- *optional*
     
-    default is "gitfeed"
+        default is "gitfeed"
 
 
 * **results** - number of results to display -- *optional*
     
-    default is all the results
+        default is all the results
 
 
 * **dateFormat** - how to format dates -- *optional*
@@ -28,15 +28,19 @@ Display your GitHub activity feed
 
 * **timeFormat** - how to format time -- *optional*
 
-         default is 24-hour time, e.g. 15:00
+        default is 24-hour time, e.g. 15:00
 
  * "12" - gives you 12-hour time, e.g. 3:00 PM
 
 * **hideLabels** - hide section labels -- *optional*
     
-    default is false
+        default is false
 
 
 * **hideWatched** - hide activity about repos you watch or star --  *optional*
         
-    default is false
+        default is false
+
+## Screenshot
+
+![GitFeed Screenshot](https://github.com/Bszulc/gitFeed.js/blob/master/gitfeed-screenshot.jpg)
