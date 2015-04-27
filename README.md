@@ -66,7 +66,7 @@ with your preferred settings:
 * **hideWatched** - hide activity about repos you watch or star --  *optional*
         
         default is false
-```
+
 
 ## Screenshot
 
