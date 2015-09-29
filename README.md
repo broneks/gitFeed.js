@@ -1,4 +1,4 @@
-# GitFeed.js 
+# GitFeed.js
 
 Display your GitHub activity feed on your website :octocat:
 
@@ -21,7 +21,7 @@ Add elements to be targeted by gitFeed. Feed activity will be appended to this e
 ```
 
 
-Include the minified js file at the bottom of the body of your page and then initialize gitFeed 
+Include the minified js file at the bottom of the body of your page and then initialize gitFeed
 with your preferred settings:
 
 ```
@@ -29,7 +29,7 @@ with your preferred settings:
 <script>
     // initialize gitfeed
     gitFeed({
-      username       : 'bszulc',   // required
+      username       : 'broneks',   // required
       dateFormat     : 'medium',
       timeFormat     : '12',
       hideWatched    : true,
@@ -41,16 +41,16 @@ with your preferred settings:
 
 ##Settings:
 
-* **username** - your GitHub username -- ***required*** 
+* **username** - your GitHub username -- ***required***
 
 
 * **targetClass** - element class name that gitFeed will target -- *optional*
-    
+
         default is "gitfeed"
 
 
 * **results** - number of results to display -- *optional*
-    
+
         default is all the results
 
 
@@ -70,15 +70,15 @@ with your preferred settings:
  * "12" - gives you 12-hour time, e.g. 3:00 PM
 
 * **hideLabels** - hide section labels -- *optional*
-    
+
         default is false
 
 
 * **hideWatched** - hide activity about repos you watch or star --  *optional*
-        
+
         default is false
 
 
 ## Screenshot
 
-![GitFeed Screenshot](https://github.com/Bszulc/gitFeed.js/blob/master/gitfeed-screenshot.jpg)
+![GitFeed Screenshot](https://github.com/broneks/gitFeed.js/blob/master/gitfeed-screenshot.png)

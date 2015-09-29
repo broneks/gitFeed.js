@@ -38,8 +38,8 @@
   content: "";
   clear: both;
 }
-.gitfeed-item + .gitfeed-item { 
-  margin-top: 0.5em; 
+.gitfeed-item + .gitfeed-item {
+  margin-top: 0.5em;
   border-top: 1px solid #e9e9e9;
 }
 .gitfeed-item-section + .gitfeed-item-section:not(.gitfeed-action) {
@@ -51,14 +51,14 @@
   clear: both;
 }
 .gitfeed-label + span,
-.gitfeed-label + a { 
+.gitfeed-label + a {
   width: 79%;
 }
 .gitfeed-label {
   width: 20%;
   float: left;
   font-size: 0.9em;
-  font-weight: bold; 
+  font-weight: bold;
   color: #525252;
 }
 .gitfeed-commit {
@@ -86,4 +86,7 @@
   font-size: 0.85em;
   padding-top: 0.25em;
   color: #525252;
+}
+.gitfeed-repo {
+  font-weight: bold;
 }

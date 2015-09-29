@@ -2,7 +2,7 @@
  * gitFeed.js (Github Activity Feed Display)
  *
  * Copyright 2014-2015 Bronek Szulc
- * https://github.com/Bszulc/gitFeed.js
+ * https://github.com/broneks/gitFeed.js
  */
 
 var gitFeed = (function(window) {
@@ -13,7 +13,7 @@ var gitFeed = (function(window) {
 
 
   // basic object extension
-  // 
+  //
   var extend = function( original, extension ) {
 
     var prop;
@@ -21,13 +21,13 @@ var gitFeed = (function(window) {
     for ( prop in extension ) {
 
       if ( !original.hasOwnProperty( prop ) ) {
-        
+
         original[prop] = extension[prop];
       }
     }
   };
 
-  
+
   // access jsonp Github api for user's public events
   // store the returned data in session in order to prevent unauthenticated api limit from being reached
   //
@@ -38,7 +38,7 @@ var gitFeed = (function(window) {
     dataStore = sessionStorage.getItem( 'gitfeed_store' );
 
     if ( dataStore ) {
-     
+
       callback( JSON.parse( dataStore ) );
       return;
     }
@@ -54,7 +54,7 @@ var gitFeed = (function(window) {
     document.body.appendChild( script );
 
     window[callbackName] = function( data ) {
-      
+
       delete window[callbackName];
       document.body.removeChild( script );
 
@@ -84,11 +84,11 @@ var gitFeed = (function(window) {
     item = document.createElement('div');
     item.className = options.itemClass + ' ' + itemCommonClass;
 
-  
+
     if ( !settings.hideLabels ) {
 
       labelText = document.createTextNode( options.label );
-    
+
       label = document.createElement('span');
       label.className = labelClass;
       label.appendChild( labelText );
@@ -98,7 +98,7 @@ var gitFeed = (function(window) {
 
     if ( type === 'link' ) {
 
-      options.url = 'https://github.com' + 
+      options.url = 'https://github.com' +
                     (options.url.split('/repos')[1]).replace(/\/commits\//, '/commit/');
 
       content = document.createElement('a');
@@ -106,7 +106,7 @@ var gitFeed = (function(window) {
       content.setAttribute('target', '_blank');
 
     } else {
-      
+
       content = document.createElement('span');
     }
 
@@ -143,7 +143,8 @@ var gitFeed = (function(window) {
 
       if ( settings.timeFormat && settings.timeFormat === '12' ) {
         hours  = (t.hours > 12) ? t.hours - 12 : t.hours;
-        marker = (t.hours > 12) ? ' PM': ' AM'; 
+        hours  = (t.hours < 10  ? '0' : '') + t.hours;
+        marker = (t.hours > 12) ? ' PM': ' AM';
       }
 
       return ' ' + String.fromCharCode( 8211 ) + ' ' + hours + ':' + minutes + marker;
@@ -151,7 +152,7 @@ var gitFeed = (function(window) {
 
 
     // e.g. 9/3/2010
-    // 
+    //
     var shortFormat = function( d ) {
 
       return (d.month + 1) + '/' + d.day + '/' + d.year + timeFormat( d );
@@ -159,15 +160,15 @@ var gitFeed = (function(window) {
 
 
     // e.g. Sep 3, 2010
-    // 
+    //
     var mediumFormat = function( d ) {
-      
+
       return monthNames.short[d.month] + ' ' + d.day + ', ' + d.year + timeFormat( d );
     };
 
 
     // e.g. September 3, 2010
-    // 
+    //
     var longFormat = function( d ) {
 
       return monthNames.long[d.month] + ' ' + d.day + ', ' + d.year + timeFormat( d );
@@ -209,7 +210,7 @@ var gitFeed = (function(window) {
     }
   })();
 
-  
+
   // populate each intance of the gitFeed with the retrieved data
   //
   var populateFeeds = function( data ) {
@@ -232,18 +233,18 @@ var gitFeed = (function(window) {
       info.type    = (info.current.type).replace( 'Event', '' );
 
       if ( settings.hideWatched && info.type.toLowerCase() === 'watch' ) {
-        
+
         if ( numOfResults <= dataLength - 1 ) {
 
           numOfResults += 1;
         }
-        
+
         continue;
       }
 
       info.date = formatDate( new Date( info.current.created_at ) );
 
-      
+
       if ( info.current.payload.commits ) {
 
         createSection( listItem, {
@@ -251,7 +252,7 @@ var gitFeed = (function(window) {
           label     : 'commit:',
           url       : info.current.payload.commits[0].url,
           content   : info.current.payload.commits[0].message
-        }, 'link' );    
+        }, 'link' );
       }
 
       if ( info.current.repo ) {
@@ -284,7 +285,7 @@ var gitFeed = (function(window) {
 
 
     feeds.forEach( function( feed ) {
-        
+
       feed.appendChild( container );
     });
   };
@@ -310,15 +311,15 @@ var gitFeed = (function(window) {
       throw new Error( 'gitFeed.js : please initialize the plugin with a valid Github username.' );
     }
 
-    extend( settings, defaults );  
+    extend( settings, defaults );
 
     nodes = document.querySelectorAll( '.' + settings.targetClass );
     feeds = Array.prototype.slice.call( nodes );
 
     try {
-    
+
       getEvents( populateFeeds );
-    
+
     } catch( err ) {
 
       for (i = 0; i < feeds.length; i++) {
