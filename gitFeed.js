@@ -35,14 +35,15 @@ var gitFeed = (function(window) {
 
     var dataStore, url, callbackName, script;
 
-    dataStore = sessionStorage.getItem( 'gitfeed_store' );
+    if (settings.sessionStorage) {
+      
+      dataStore = sessionStorage.getItem( 'gitfeed_store' );
 
-    if ( dataStore ) {
-
-      callback( JSON.parse( dataStore ) );
-      return;
+      if ( dataStore ) {
+        callback( JSON.parse( dataStore ) );
+        return;
+      }
     }
-
 
     url = 'https://api.github.com/users/' + settings.username + '/events/public';
 
@@ -63,7 +64,9 @@ var gitFeed = (function(window) {
         throw new Error( data.data.message );
       }
 
-      sessionStorage.setItem( 'gitfeed_store', JSON.stringify( data.data ) );
+      if (settings.sessionStorage) {
+        sessionStorage.setItem( 'gitfeed_store', JSON.stringify( data.data ) );
+      }
 
       callback( data.data );
     };
@@ -303,7 +306,8 @@ var gitFeed = (function(window) {
       targetClass    : 'gitfeed',
       dateFormat     : 'long',
       hideLabels     : false,
-      hideWatched    : false
+      hideWatched    : false,
+      sessionStorage : true
     };
 
     if ( !settings.hasOwnProperty( 'username' ) ) {

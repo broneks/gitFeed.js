@@ -78,6 +78,10 @@ with your preferred settings:
 
         default is false
 
+* **sessionStorage** - control whether or not your github feed is stored during the browser session --  *optional*
+
+        default is true
+
 
 ## Screenshot
 
