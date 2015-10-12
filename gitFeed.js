@@ -36,7 +36,7 @@ var gitFeed = (function(window) {
     var dataStore, url, callbackName, script;
 
     if (settings.sessionStorage) {
-      
+
       dataStore = sessionStorage.getItem( 'gitfeed_store' );
 
       if ( dataStore ) {
@@ -140,17 +140,16 @@ var gitFeed = (function(window) {
         return '';
       }
 
-      var hours   = (t.hours   < 10 ? '0' : '') + t.hours;
-      var minutes = (t.minutes < 10 ? '0' : '') + t.minutes;
+      var hours   = t.hours;
+      var minutes = t.minutes;
       var marker  = '';
 
       if ( settings.timeFormat && settings.timeFormat === '12' ) {
-        hours  = (t.hours > 12) ? t.hours - 12 : t.hours;
-        hours  = (t.hours < 10  ? '0' : '') + t.hours;
-        marker = (t.hours > 12) ? ' PM': ' AM';
+        hours  = (t.hours > 12 ? t.hours - 12 : t.hours);
+        marker = (t.hours > 12 ? ' PM': ' AM');
       }
 
-      return ' ' + String.fromCharCode( 8211 ) + ' ' + hours + ':' + minutes + marker;
+      return ' ' + String.fromCharCode( 8211 ) + ' ' + (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + marker;
     };
 
 
